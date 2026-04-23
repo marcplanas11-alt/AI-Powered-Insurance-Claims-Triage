@@ -1,0 +1,11 @@
+Home insurance policy.
+
+Covered:
+- Water damage caused by sudden and accidental escape of water
+- Damage to insured kitchen fixtures and surfaces
+
+Excluded:
+- Wear and tear
+- Gradual deterioration
+- Corrosion
+- Damage caused by poor maintenance
