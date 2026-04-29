@@ -135,35 +135,29 @@ def test_extract_text_from_pdf_skips_empty_pages():
 # --- load_input ---
 
 def test_load_input_returns_sample_when_use_sample_true():
-    app.use_sample = True
-    result = app.load_input(None, "", "sample text")
+    result = app.load_input(None, "", "sample text", use_sample=True)
     assert result == "sample text"
-    app.use_sample = False
 
 
 def test_load_input_returns_manual_text_when_provided():
-    app.use_sample = False
-    result = app.load_input(None, "  pasted text  ", "sample")
+    result = app.load_input(None, "  pasted text  ", "sample", use_sample=False)
     assert result == "pasted text"
 
 
 def test_load_input_returns_empty_when_no_file_and_no_text():
-    app.use_sample = False
-    result = app.load_input(None, "", "sample")
+    result = app.load_input(None, "", "sample", use_sample=False)
     assert result == ""
 
 
 def test_load_input_reads_txt_file():
-    app.use_sample = False
     mock_file = MagicMock()
     mock_file.name = "claim.txt"
     mock_file.read.return_value = b"file content"
-    result = app.load_input(mock_file, "", "sample")
+    result = app.load_input(mock_file, "", "sample", use_sample=False)
     assert result == "file content"
 
 
 def test_load_input_reads_pdf_file():
-    app.use_sample = False
     mock_file = MagicMock()
     mock_file.name = "claim.pdf"
 
@@ -173,6 +167,6 @@ def test_load_input_reads_pdf_file():
     mock_reader.pages = [mock_page]
 
     with patch("app.PdfReader", return_value=mock_reader):
-        result = app.load_input(mock_file, "", "sample")
+        result = app.load_input(mock_file, "", "sample", use_sample=False)
 
     assert result == "pdf content"

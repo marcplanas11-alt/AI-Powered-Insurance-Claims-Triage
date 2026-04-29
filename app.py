@@ -39,7 +39,7 @@ def extract_text_from_txt(uploaded_file):
     return uploaded_file.read().decode("utf-8")
 
 
-def load_input(uploaded_file, manual_text: str, sample_text: str):
+def load_input(uploaded_file, manual_text: str, sample_text: str, use_sample: bool = False):
     if use_sample:
         return sample_text
     if manual_text and manual_text.strip():
@@ -178,8 +178,8 @@ if st.button("Run Claims Triage", type="primary"):
     if not api_key:
         st.error("Please enter your Anthropic API key.")
     else:
-        claim_text = load_input(claim_file, claim_text_input, SAMPLE_CLAIM)
-        policy_text = load_input(policy_file, policy_text_input, SAMPLE_POLICY)
+        claim_text = load_input(claim_file, claim_text_input, SAMPLE_CLAIM, use_sample)
+        policy_text = load_input(policy_file, policy_text_input, SAMPLE_POLICY, use_sample)
 
         if not claim_text.strip():
             st.error("Please upload or paste claim text, or use the sample claim.")
